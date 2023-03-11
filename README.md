@@ -3,6 +3,39 @@ This is a repository for experimenting with Jenkins. It currently contains the f
 
 1. On commit, compile the code and send email alerts if there are any errors.
 
+## Jenkins with Mercurial Docker Image
+
+The Dockerfile installs the Mercurial package, adds Mercurial to the Jenkins classpath, and installs the Mercurial plugin.
+
+### Usage
+1. Clone or download the repository containing the Dockerfile and related files for Jenkins.
+2. Navigate to the directory containing the Dockerfile.
+3. Build the Docker image using the following command:
+   
+```
+docker build -t my-mercurial-image .
+```
+
+4. Run the Docker container using the following command:
+```
+docker run -d -p 8080:8080 -p 50000:50000 -v jenkins_home:/var/jenkins_home my-mercurial-image
+```
+
+This will start the Jenkins container and expose port 8080 for web access and port 50000 for remote access. It will also mount the "jenkins_home" directory inside the container to the host's file system to store the Jenkins configuration data.
+
+Open a web browser and navigate to http://localhost:8080/jenkins to access the Jenkins web interface.
+
+Follow the on-screen instructions to complete the Jenkins setup process.
+
+### Notes
+If you need to customize the Jenkins installation or add additional packages, you can modify the Dockerfile before building the image.
+If you want to persist the Jenkins data across container restarts, you can use a Docker volume or a bind mount to store the "jenkins_home" directory on the host machine.
+If you want to remove the Jenkins container, use the following command:
+```
+docker stop my-mercurial-image
+docker rm my-mercurial-image
+```
+
 ## hg-server Docker Image
 
 This Docker image provides a simple Mercurial server that serves repositories over HTTP. It includes the `hg-server.sh` script that initializes the repository, starts the Mercurial server, and keeps the container running.
