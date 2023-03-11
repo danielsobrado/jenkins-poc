@@ -36,7 +36,7 @@ docker stop my-mercurial-image
 docker rm my-mercurial-image
 ```
 
-## hg-server Docker Image
+## Mercurial Server Docker Image
 
 This Docker image provides a simple Mercurial server that serves repositories over HTTP. It includes the `hg-server.sh` script that initializes the repository, starts the Mercurial server, and keeps the container running.
 
