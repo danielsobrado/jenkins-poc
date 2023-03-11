@@ -21,12 +21,12 @@ services:
   hg-server:
     image: alpine:latest
     ports:
-      - "8000:8888"
+      - "8000:8000"
     stdin_open: true
     tty: true
     volumes:
       - hg_repos:/var/hg/repos
-    command: sh -c "apk update && apk add mercurial && if [ ! -d /var/hg/repos/.hg ]; then hg init /var/hg/repos; fi && cd /var/hg/repos && hg serve --daemon && while true; do sleep 1; done"
+    command: sh hg-server.sh
     networks:
       - jenkins_network
 

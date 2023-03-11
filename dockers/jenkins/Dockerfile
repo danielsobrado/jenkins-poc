@@ -4,7 +4,7 @@ USER root
 
 # Install Mercurial package
 RUN apt-get update && \
-    apt-get install -y mercurial && \
+    apt-get install -y mercurial sudo iputils-ping telnet && \
     rm -rf /var/lib/apt/lists/*
 
 USER jenkins
