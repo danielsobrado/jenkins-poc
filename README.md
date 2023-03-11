@@ -26,7 +26,7 @@ These commands can be useful for troubleshooting network and system issues.
 To build the Docker image, you can use the following command:
 
 ```
-docker build -t hg-server .
+my-mercurial-image
 ```
 
 This will build the Docker image and tag it as `hg-server`.

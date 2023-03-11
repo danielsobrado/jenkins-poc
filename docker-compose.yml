@@ -19,7 +19,7 @@ services:
       - jenkins_network
 
   hg-server:
-    image: alpine:latest
+    image: my-mercurial-image
     ports:
       - "8000:8000"
     stdin_open: true

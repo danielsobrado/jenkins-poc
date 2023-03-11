@@ -1,6 +1,4 @@
 #!/bin/sh
-apk update
-apk add mercurial
 if [ ! -d /var/hg/repos/.hg ]; then
     hg init /var/hg/repos
     cd /var/hg/repos
