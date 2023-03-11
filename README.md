@@ -5,8 +5,7 @@ This is a repository for experimenting with Jenkins. It currently contains the f
 
 ## On Commit compile and send email alerts if there are errors
 ### Prerequisites
-* Docker Compose to start Jenkins and a local email server
-* Local Mercurial server in Windows with Tortoise or in WSL2
+* Docker Compose to start Jenkins a mercurial server and a local email server
 ### Usage
 1. Build the Docker image:
 ```
@@ -18,7 +17,7 @@ docker-compose up -d
 ```
 3. Configure Jenkins:
 
-* Go to http://localhost:8080 in your web browser
+* Go to http://localhost:8080/jenkins in your web browser
 * Follow the Jenkins setup wizard
 * Install the Mercurial plugin
 * Create a new pipeline job
@@ -27,6 +26,5 @@ docker-compose up -d
 
 ## Notes
 * The `Jenkinsfile` contains a pipeline that checks out code from the Mercurial server, installs dependencies, lints the code, and sends an email notification if there are any linting errors.
-* The pipeline assumes that the Mercurial server is running on `localhost:8000` and that the email server is running on `localhost:1025`.
-* The docker-compose.yml file starts two containers: one for Jenkins and one for a local email server (MailHog).
-* The Mercurial server can be set up using TortoiseHg on Windows or in a WSL2 environment.
+* The pipeline assumes that the Mercurial server is running on `localhost:8888` and that the email server is running on `localhost:1025`.
+* The docker-compose.yml file starts three containers: one for Jenkins, one for a local email server (MailHog) and one to serve a mercurial repo.
