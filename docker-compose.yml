@@ -25,8 +25,8 @@ services:
     stdin_open: true
     tty: true
     volumes:
-      - hg_repos:/var/hg/repos
-    command: sh hg-server.sh
+      - hg_repos:/repos
+    command: bash /usr/local/bin/hg-server.sh
     networks:
       - jenkins_network
 

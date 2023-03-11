@@ -5,11 +5,12 @@ RUN apk update && \
     apk add iputils && \
     apk add busybox-extras && \
     apk add sudo && \
-    mkdir -p /var/hg/repos
+    apk add bash && \ 
+    mkdir -p /repos
 
-COPY hg-server.sh /usr/local/bin/
+COPY hg-server.sh /usr/local/bin/hg-server.sh
 RUN chmod +x /usr/local/bin/hg-server.sh
 
-WORKDIR /var/hg/repos
+WORKDIR /repos
 
-CMD ["/usr/local/bin/hg-server.sh"]
+CMD ["~/hg-server.sh"]

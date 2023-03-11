@@ -1,12 +1,13 @@
-#!/bin/sh
-if [ ! -d /var/hg/repos/.hg ]; then
-    hg init /var/hg/repos
-    cd /var/hg/repos
+#!/bin/bash
+
+if [ ! -d ./repos/.hg ]; then
+    hg init ./repos
+    cd ./repos
     echo "print('Hello, World!')" > test.py
     hg add test.py
-    hg commit -m "Initial commit"
+    hg commit -u "Daniel Sobrado <daniel@danielsobrado.com>" -m "commit message"
 fi
+
 hg serve --daemon
-while true; do
-    sleep 1
-done
+
+while true; do sleep 2; done
