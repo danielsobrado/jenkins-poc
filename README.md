@@ -5,6 +5,9 @@ Some experiments using Jenkins
 
 ### Docker compose to start Jenkins and a local email server
 
+docker build -t my-jenkins-image .
+
+
 ### Local Mercurial server in Windows with Tortoise or in WSL2
 
 ### The pipeline

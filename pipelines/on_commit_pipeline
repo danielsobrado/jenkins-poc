@@ -1,0 +1,44 @@
+pipeline {
+    agent any
+    environment {
+        MAILHOST = "mailhog:1025"
+    }
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout([
+                    $class: 'MercurialSCM',
+                    branches: [[name: 'default']],
+                    extensions: [[$class: 'CleanCheckout']],
+                    userRemoteConfigs: [[url: 'http://localhost:8000/repoMercurial/']]
+                ])
+            }
+        }
+        stage('Lint') {
+            steps {
+                sh 'apt-get update'
+                sh 'apt-get install -y mercurial mailutils'
+                sh 'pip install -r requirements.txt'
+                sh 'flake8 .'
+            }
+            post {
+                failure {
+                    script {
+                        def subject = "Build failed for ${env.JOB_NAME} ${env.BUILD_NUMBER}"
+                        def body = """
+                            Build failed for ${env.JOB_NAME} ${env.BUILD_NUMBER}.
+
+                            Check the console output at ${env.BUILD_URL} for more information.
+                        """
+                        emailext (
+                            to: "youremail@example.com",
+                            subject: subject,
+                            body: body,
+                            attachLog: true
+                        )
+                    }
+                }
+            }
+        }
+    }
+}

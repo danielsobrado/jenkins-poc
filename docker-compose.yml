@@ -1,0 +1,46 @@
+version: '3'
+services:
+  jenkins:
+    image: my-jenkins-image
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    volumes:
+      - jenkins_home:/var/jenkins_home
+      - hg_repos:/var/hg/repos
+    depends_on:
+      - hg-server
+      - mailhog
+    environment:
+      - JENKINS_OPTS=--prefix=/jenkins
+      - SMTP_HOST=mailhog
+      - SMTP_PORT=1025
+    networks:
+      - jenkins_network
+
+  hg-server:
+    image: alpine:latest
+    ports:
+      - "8000:8888"
+    stdin_open: true
+    tty: true
+    volumes:
+      - hg_repos:/var/hg/repos
+    command: sh -c "apk update && apk add mercurial && if [ ! -d /var/hg/repos/.hg ]; then hg init /var/hg/repos; fi && cd /var/hg/repos && hg serve --daemon && while true; do sleep 1; done"
+    networks:
+      - jenkins_network
+
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+    networks:
+      - jenkins_network
+
+networks:
+  jenkins_network:
+
+volumes:
+  jenkins_home:
+  hg_repos:
