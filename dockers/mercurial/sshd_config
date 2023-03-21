@@ -1,0 +1,25 @@
+# Port to listen on
+Port 22
+
+# Listen on IPv4 only
+AddressFamily inet
+
+# Allow root login with password
+PermitRootLogin yes
+PasswordAuthentication yes
+
+# Allow SSH access for the admin user
+AllowUsers admin
+
+# Disable X11 forwarding
+X11Forwarding no
+
+# Disable TCP forwarding
+AllowTcpForwarding no
+
+# Disable password authentication for root
+Match User root
+    PasswordAuthentication no
+
+# Disable SSH access for other system users
+DenyUsers bin daemon adm lp sync shutdown halt mail news uucp operator games ntp smmsp backup list irc proxy www-data backupninja nagios sshd

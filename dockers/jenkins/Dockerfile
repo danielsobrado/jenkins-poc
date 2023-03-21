@@ -10,7 +10,7 @@ RUN apt-get update && \
 USER jenkins
 
 # Add Mercurial to the classpath
-ENV PATH="/usr/bin/hg:${PATH}"
+ENV PATH="/usr/bin:${PATH}"
 
 # Install the Mercurial plugin
 RUN jenkins-plugin-cli --plugins mercurial

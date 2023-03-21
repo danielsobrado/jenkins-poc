@@ -1,6 +1,9 @@
 version: '3'
 services:
   jenkins:
+    build:
+      context: ./dockers/jenkins
+      dockerfile: Dockerfile
     image: my-jenkins-image
     ports:
       - "8080:8080"
@@ -19,13 +22,17 @@ services:
       - jenkins_network
 
   hg-server:
+    build:
+      context: ./dockers/mercurial
+      dockerfile: Dockerfile
     image: my-mercurial-image
     ports:
       - "8000:8000"
+      - "22:2222"
     stdin_open: true
     tty: true
     volumes:
-      - hg_repos:/repos
+      - hg_repos:/var/hg/repos
     command: bash /usr/local/bin/hg-server.sh
     networks:
       - jenkins_network
